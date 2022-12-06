@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Say Hello</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <img src="https://raw.githubusercontent.com/MariyaSha/SimpleGreetingApp/main/logo.png">
+    <br>
+    <form action="greet" method="post">
+        <br>
+        <input type="submit" value="GREET" id="greet1">
+    </form>
+    <form action="greet2" method="post">
+        <br>
+        <input type="submit" value="GREET" id="greet2">
+    </form>
+    <form action="greet3" method="post">
+        <br>
+        <input type="submit" value="GREET" id="greet3">
+    </form>
+</body>
+</html>

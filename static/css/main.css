@@ -1,0 +1,246 @@
+body {
+    text-align: center;
+    background-color: SlateGrey;
+}
+p {
+    color: white;
+    font-family: Shanti;
+    font-size: 1.2em;
+    display: inline-block;
+    margin:  20px;
+}
+img {
+    margin: 60px 0 30px 0;
+    width: 250px;
+}
+input {
+  width: 300px;
+  margin: 20px 20px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  font-family: Shanti;
+  font-size: 1.3em;
+  text-align: center;
+}
+
+input:focus {
+    outline: none;
+    border: solid 5px #00FFCE;
+}
+
+#greet {
+    background-color: PaleVioletRed;
+    border:  none;
+    width:  200px;
+    color: white;
+}
+
+#greet:hover {
+    background-color: MediumVioletRed;
+}
+
+
+
+
+
+ul.arabic-list{
+    list-style-type: none;
+    direction: rtl;
+}
+
+.arabic-list li{
+    direction: rtl;
+}
+  
+.arabic-list li:before {  
+    padding:5px;
+}
+
+.arabic-list {
+    counter-reset: counter -28;
+}
+
+
+.arabic-list li:nth-child(28n+1):before {
+    counter-increment: counter;
+    content: "أ" counter(counter) ".";
+}
+
+.arabic-list li:nth-child(28n+2):before {
+    counter-increment: counter;
+    content: "ب" counter(counter) ".";
+}
+
+.arabic-list li:nth-child(28n+3):before {
+    counter-increment: counter;
+    content: "ج" counter(counter) ".";
+}
+
+.arabic-list li:nth-child(28n+4):before {
+    counter-increment: counter;
+    content: "د" counter(counter) ".";
+}
+
+.arabic-list li:nth-child(28n+5):before {
+    counter-increment: counter;
+    content: "هـ" counter(counter) ".";
+}
+
+
+
+.arabic-list li:nth-child(28n+6):before {
+    counter-increment: counter;
+    content: "و" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+7):before {
+    counter-increment: counter;
+    content: "ز" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+8):before {
+    counter-increment: counter;
+    content: "ح" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+9):before {
+    counter-increment: counter;
+    content: "ط" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+10):before {
+    counter-increment: counter;
+    content: "ي" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+11):before {
+    counter-increment: counter;
+    content: "ك" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+12):before {
+    counter-increment: counter;
+    content: "ل" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+13):before {
+    counter-increment: counter;
+    content: "م" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+14):before {
+    counter-increment: counter;
+    content: "ن" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+15):before {
+    counter-increment: counter;
+    content: "س" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+16):before {
+    counter-increment: counter;
+    content: "ع" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+17):before {
+    counter-increment: counter;
+    content: "ف" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+18):before {
+    counter-increment: counter;
+    content: "ص" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+19):before {
+    counter-increment: counter;
+    content: "ق" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+20):before {
+    counter-increment: counter;
+    content: "ر" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+21):before {
+    counter-increment: counter;
+    content: "ش" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+22):before {
+    counter-increment: counter;
+    content: "ت" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+23):before {
+    counter-increment: counter;
+    content: "ث" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+24):before {
+    counter-increment: counter;
+    content: "خ" counter(counter) ".";
+}
+
+
+.arabic-list li:nth-child(28n+25):before {
+    counter-increment: counter;
+    content: "ذ" counter(counter) ".";
+}
+
+.arabic-list li:nth-child(28n+26):before {
+    counter-increment: counter;
+    content: "ض" counter(counter) ".";
+}
+
+.arabic-list li:nth-child(28n+27):before {
+    counter-increment: counter;
+    content: "ظ" counter(counter) ".";
+}
+
+.arabic-list li:nth-child(28n+28):before {
+    counter-increment: counter;
+    content: "غ" counter(counter) ".";
+}
+
+
+
+.arabic-list li:nth-child(1):before {
+    content: '1.';
+}
+
+.arabic-list li:nth-child(2):before {
+    content: '2.';
+}
+
+.arabic-list li:nth-child(3):before {
+    content: '3.';
+}
+
+.arabic-list li:nth-child(4):before {
+    content: '5.';
+}
+
+.arabic-list li:nth-child(5):before {
+    content: '6.';
+}

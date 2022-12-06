@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Search By Keywords</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <img src="rep.jpg">
+    <br>
+    <form action="SBK" method="post">
+        {% for message in get_flashed_messages() %}
+             <p>{{ message }}</p>
+         {% endfor %}
+        <br>
+        <input type="text" name="name_input2">
+        <br>
+        <input type="submit" value="Search for Post" id="SBK">
+    </form>
+    <form action="retourSBK" method="post">
+        <br>
+        <input type="submit" value="Retour" id="retourSBK">
+    </form>
+</body>
+</html>

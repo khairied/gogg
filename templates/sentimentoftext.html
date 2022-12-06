@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Say Hello</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <img src="rep.jpg">
+    <br>
+    <form action="sentiment" method="post">
+        {% for message in get_flashed_messages() %}
+             <p>{{ message }}</p>
+         {% endfor %}
+        <br>
+        <input type="text" name="name_input1">
+        <br>
+        <input type="submit" value="Calculate Sentiment" id="sentiment">
+    </form>
+    <form action="retoursentiment" method="post">
+        <br>
+        <input type="submit" value="Retour" id="retoursentiment">
+    </form>
+</body>
+</html>

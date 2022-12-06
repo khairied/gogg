@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SBK</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <img src="rep.jpg">
+    <br>
+    <form action="SFP" method="post">
+        {% for message in get_flashed_messages() %}
+             <p>{{ message }}</p>
+         {% endfor %}
+        <br>
+        <input type="text" name="name_input3">
+        <br>
+        <input type="submit" value="Reputation of FB Account" id="SFP">
+        <details>
+            <summary>Most Negative Comment</summary>
+            <ul class = "arabic-list">
+            <li>{{v1}}</li>
+            <li>{{v2}}</li>
+            <li>{{v3}}</li>
+            </ul>
+        </details>
+        <details>
+            <summary>Most Positive Comment</summary>
+            <ul class = "arabic-list">
+            <li>{{v4}}</li>
+            <li>{{v5}}</li>
+            <li>{{v6}}</li>
+            </ul>
+        </details>
+        <img src="data:image/jpeg;base64,{{ wrd }}">
+    </form>
+    <form action="retourSFP" method="post">
+        <br>
+        <input type="submit" value="Retour" id="retourSFP">
+    </form>
+</body>
+</html>
