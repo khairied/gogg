@@ -9,3 +9,17 @@ Werkzeug==1.0.1
 wincertstore==0.2
 requests
 Pillow
+pandas
+numpy
+matplotlib
+seaborn
+nltk
+wordcloud
+unicodedata
+camel_tools
+time
+textblob
+sklearn
+bidi
+os
+arabic_reshaper
