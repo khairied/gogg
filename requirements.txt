@@ -19,6 +19,6 @@ unicodedata2
 camel_tools
 textblob
 sklearn
-bidi
+python-bidi
 os
 arabic_reshaper
