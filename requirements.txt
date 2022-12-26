@@ -17,7 +17,6 @@ nltk
 wordcloud
 unicodedata2
 camel_tools
-time
 textblob
 sklearn
 bidi
