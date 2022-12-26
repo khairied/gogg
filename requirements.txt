@@ -15,7 +15,7 @@ matplotlib
 seaborn
 nltk
 wordcloud
-unicodedata
+unicodedata2
 camel_tools
 time
 textblob
