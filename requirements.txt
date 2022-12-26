@@ -20,5 +20,4 @@ camel_tools
 textblob
 sklearn
 python-bidi
-os
 arabic_reshaper
