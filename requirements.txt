@@ -16,7 +16,6 @@ seaborn
 nltk
 wordcloud
 unicodedata2
-camel_tools
 textblob
 sklearn
 python-bidi
