@@ -21,7 +21,7 @@ from nltk.stem import WordNetLemmatizer
 import nltk
 from nltk.corpus import stopwords
 from wordcloud import WordCloud
-from afinn import Afinn
+##from afinn import Afinn
 import unicodedata as ud
 import camel_tools as ct
 from nltk.stem.isri import ISRIStemmer
