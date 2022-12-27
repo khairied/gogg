@@ -29,7 +29,7 @@ from ar_wordcloud import ArabicWordCloud
 import time
 #model
 from textblob import TextBlob
-from camel_tools.sentiment import SentimentAnalyzer
+##from camel_tools.sentiment import SentimentAnalyzer
 from sklearn.metrics import classification_report, accuracy_score
 
 from bidi.algorithm import get_display
