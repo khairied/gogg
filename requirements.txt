@@ -19,3 +19,4 @@ unicodedata2
 textblob
 python-bidi
 arabic_reshaper
+scikit-learn
