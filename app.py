@@ -125,7 +125,7 @@ def list2json (text,scor,sent):
 
 def query(payload):
     data = json.dumps(payload)
-    response = requests.request("POST", API_URL2, headers=headers, data=data)
+    response = requests.request("POST", API_URL3, headers=headers, data=data)
     return json.loads(response.content.decode("utf-8"))
 
 @app.route("/hello")
