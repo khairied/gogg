@@ -23,13 +23,13 @@ nltk.download('stopwords')
 from wordcloud import WordCloud
 ##from afinn import Afinn
 import unicodedata as ud
-###import camel_tools as ct
+import camel_tools as ct
 from nltk.stem.isri import ISRIStemmer
 ##from ar_wordcloud import ArabicWordCloud
 import time
 #model
 from textblob import TextBlob
-##from camel_tools.sentiment import SentimentAnalyzer
+from camel_tools.sentiment import SentimentAnalyzer
 from sklearn.metrics import classification_report, accuracy_score
 
 from bidi.algorithm import get_display
