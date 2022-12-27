@@ -21,3 +21,4 @@ python-bidi
 arabic_reshaper
 scikit-learn
 facebook_scraper
+camel_tools
