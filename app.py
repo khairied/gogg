@@ -25,7 +25,7 @@ from wordcloud import WordCloud
 import unicodedata as ud
 ###import camel_tools as ct
 from nltk.stem.isri import ISRIStemmer
-from ar_wordcloud import ArabicWordCloud
+##from ar_wordcloud import ArabicWordCloud
 import time
 #model
 from textblob import TextBlob
