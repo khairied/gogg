@@ -170,15 +170,15 @@ def greeter6():
 def greeter7():
 	###flash("Hi " + str(request.form['name_input1']) + ", great to see you!")
 	return render_template("index.html")
-
+sa = SentimentAnalyzer("CAMeL-Lab/bert-base-arabic-camelbert-da-sentiment")
 
 @app.route("/SFP", methods=['POST', 'GET'])
 def greeter8():
       label1=[]
       t = time.time()
       c=get_comment(account_name=request.form['name_input3'])
-      allscore = query({"inputs": c})
-      print(allscore)
+      allscore=sa.predict(sentences)
+      flash(allscore)
       score1=[]
       ####try:
       ff1=''
@@ -203,8 +203,8 @@ def greeter8():
       df=pd.DataFrame(list(zip(c, score1, label1)),columns=['text','scoore1', 'label1'])
       df=df.sort_values(by = ['label1','scoore1'],ascending=False)
       print(df)
-      df1 = df[df['label1'] == 'POSITIVE' ]
-      df2 = df[df['label1'] == 'NEGATIVE' ]
+      df1 = df[df['label1'] == 'positive' ]
+      df2 = df[df['label1'] == 'negative' ]
       ff1=df1['text'].values[0]
       ff2=df1['text'].values[1]
       ff3=df1['text'].values[2]
