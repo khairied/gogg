@@ -17,6 +17,5 @@ nltk
 wordcloud
 unicodedata2
 textblob
-sklearn
 python-bidi
 arabic_reshaper
