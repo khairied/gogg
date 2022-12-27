@@ -23,7 +23,7 @@ from nltk.corpus import stopwords
 from wordcloud import WordCloud
 ##from afinn import Afinn
 import unicodedata as ud
-import camel_tools as ct
+###import camel_tools as ct
 from nltk.stem.isri import ISRIStemmer
 from ar_wordcloud import ArabicWordCloud
 import time
