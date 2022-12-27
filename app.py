@@ -19,7 +19,7 @@ import seaborn as sns
 import re
 from nltk.stem import WordNetLemmatizer
 import nltk
-from nltk.corpus import stopwords
+nltk.download('stopwords')
 from wordcloud import WordCloud
 ##from afinn import Afinn
 import unicodedata as ud
