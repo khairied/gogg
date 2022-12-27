@@ -85,7 +85,7 @@ API_URL1 = "https://api-inference.huggingface.co/models/CAMeL-Lab/bert-base-arab
 API_URL2 = "https://api-inference.huggingface.co/models/CAMeL-Lab/bert-base-arabic-camelbert-da-sentiment"
 API_URL3 = "https://api-inference.huggingface.co/models/Yah216/Sentiment_Analysis_CAMelBERT_msa_sixteenth_HARD"
 
-from tabulate import tabulate
+##from tabulate import tabulate
 import json
 import pandas as pd
 from collections import Counter
