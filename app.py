@@ -19,7 +19,7 @@ import seaborn as sns
 import re
 from nltk.stem import WordNetLemmatizer
 import nltk
-nltk.download('stopwords')
+#nltk.download('stopwords')
 from wordcloud import WordCloud
 ##from afinn import Afinn
 import unicodedata as ud
@@ -42,31 +42,11 @@ import arabic_reshaper # this was missing in your code
 
 
 import nltk
-from nltk.corpus import stopwords
+##from nltk.corpus import stopwords
 
-stopwords = set(stopwords.words('arabic'))
+#stopwords = set(stopwords.words('arabic'))
 
 
-
-def preprocess_ar(text):
-    processedText = []
-    
-    # Create Lemmatizer and Stemmer.
-    st = ISRIStemmer()
-    
-    for t in text:
-        t = ''.join(c for c in t if ud.category(c) == 'Lo' or ud.category(c) == 'Nd' or c == ' ')
-        commentwords = ''
-        for word in t.split():
-            # Checking if the word is a stopword.
-            if word not in stopwords :
-                if len(word)>1:
-                    # Lemmatizing the word.
-                    word = st.suf32(word)
-                    commentwords += (word+' ')
-    processedText.append(commentwords)
-    
-    return processedText
 
 
 def wrdcld(text):
