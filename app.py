@@ -150,14 +150,15 @@ def greeter6():
 def greeter7():
 	###flash("Hi " + str(request.form['name_input1']) + ", great to see you!")
 	return render_template("index.html")
-sa = SentimentAnalyzer("CAMeL-Lab/bert-base-arabic-camelbert-da-sentiment")
+###sa = SentimentAnalyzer("CAMeL-Lab/bert-base-arabic-camelbert-da-sentiment")
 
 @app.route("/SFP", methods=['POST', 'GET'])
 def greeter8():
       label1=[]
       t = time.time()
       c=get_comment(account_name=request.form['name_input3'])
-      allscore=sa.predict(sentences)
+      ###allscore=sa.predict(sentences)
+      allscore = query({"inputs": c})
       flash(allscore)
       score1=[]
       ####try:
