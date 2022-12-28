@@ -83,12 +83,13 @@ def get_comment (account_name):
                 ##for reply in comment["replies"]:
                     ##comments.append(reply["comment_text"])
                     ##print(reply)
-                    ##if len(comments)>100:
+                    ##if len(comments)>1000:
                         ##break
-                if len(comments)>100:
+                if len(comments)>1000:
                     break
-        if len(comments)>100:
+        if len(comments)>1000:
                     break
+    print(len(comments))
     return(comments)
 
 
