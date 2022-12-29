@@ -85,10 +85,10 @@ def get_comment (account_name):
                     ##print(reply)
                     ##if len(comments)>1000:
                         ##break
-                if len(comments)>1000:
-                    break
-        if len(comments)>1000:
-                    break
+                if len(comments)>10000:
+                    print(len(comments))
+        if len(comments)>10000:
+                    print(len(comments))
     print(len(comments))
     return(comments)
 
