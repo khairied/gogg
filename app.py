@@ -5,12 +5,12 @@ app.secret_key = "manbearpig_MUDMAN888"
 import json
 import requests
 import re
-
+import gradio as gr 
 
 from PIL import Image
 import base64
 import io
-
+import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -19,17 +19,14 @@ import seaborn as sns
 import re
 from nltk.stem import WordNetLemmatizer
 import nltk
-#nltk.download('stopwords')
+from nltk.corpus import stopwords
 from wordcloud import WordCloud
-##from afinn import Afinn
 import unicodedata as ud
-##import camel_tools as ct
 from nltk.stem.isri import ISRIStemmer
-##from ar_wordcloud import ArabicWordCloud
+from ar_wordcloud import ArabicWordCloud
 import time
 #model
 from textblob import TextBlob
-##from camel_tools.sentiment import SentimentAnalyzer
 from sklearn.metrics import classification_report, accuracy_score
 
 from bidi.algorithm import get_display
@@ -39,16 +36,56 @@ from wordcloud import WordCloud
 import arabic_reshaper # this was missing in your code
 
 # os.chdir("C:")
-
-
+from tabulate import tabulate
+import json
+from collections import Counter
+from facebook_scraper import get_profile,get_posts, get_friends
+import re     
+import time
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+st_list = stopwords.words('arabic')
 import nltk
-##from nltk.corpus import stopwords
+from nltk.corpus import stopwords
 
-#stopwords = set(stopwords.words('arabic'))
+##stopwords = set(stopwords.words('arabic'))
+def sent(f):
+    try:
+        response = requests.post("https://kheireddinedaouadi-hate.hf.space/run/predict", json={"data": [f]}).json()
+    ###print(response)
+        data = str(response["data"])
+    ##print(data["label"])
+        senti=data[12:20]
+        score=float(data[74:80])
+    except:
+        senti="neutral'"
+        score="0.00"
+    return (score,senti)
 
-
-
-
+def preprocess_ar(text):
+    processedText = []
+    
+    # Create Lemmatizer and Stemmer.
+    st = ISRIStemmer()
+    commentwords = ''
+    for t in text:
+        t = ''.join(c for c in t if ud.category(c) == 'Lo' or ud.category(c) == 'Nd' or c == ' ')
+        for word in t.split():
+            # Checking if the word is a stopword.
+            if word not in st_list:
+                if len(word)>1:
+                    # Lemmatizing the word.
+                    word = st.suf32(word)
+                    commentwords += (word+' ')
+    processedText.append(commentwords)
+    
+    return processedText
+def influ(l1):
+    inf=[]
+    linkinf=[]
+    g=Counter(l1)
+    df = pd.DataFrame.from_records(g.most_common(5), columns=['user'])
+    return (df)
 def wrdcld(text):
     processedtext_ar = preprocess_ar(text)
     awc = ArabicWordCloud(background_color="white")
@@ -60,39 +97,234 @@ def wrdcld(text):
 
 
 headers = {"Authorization": f"Bearer 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"}
-API_URL = "https://api-inference.huggingface.co/models/Ammar-alhaj-ali/arabic-MARBERT-sentiment"
-API_URL1 = "https://api-inference.huggingface.co/models/CAMeL-Lab/bert-base-arabic-camelbert-mix-sentiment"
-API_URL2 = "https://api-inference.huggingface.co/models/CAMeL-Lab/bert-base-arabic-camelbert-da-sentiment"
-API_URL3 = "https://api-inference.huggingface.co/models/Yah216/Sentiment_Analysis_CAMelBERT_msa_sixteenth_HARD"
 
-##from tabulate import tabulate
-import json
-import pandas as pd
-from collections import Counter
-from facebook_scraper import get_profile,get_posts, get_friends
-import re     
-import time
-##pd.set_option('display.max_columns', None)  # or 1000
+from datetime import datetime
+
+pd.set_option('display.max_columns', None)  # or 1000
 pd.set_option('display.max_rows', None)  # or 1000
 pd.set_option('display.max_colwidth', None)  # or 199s
+from collections import Counter
+import re
+def clean_text(text):
+    text = text.encode("ascii", errors="ignore").decode(
+        "ascii"
+    )  # remove non-ascii, Chinese characters
+    text = re.sub(r"\n", " ", text)
+    text = re.sub(r"\n\n", " ", text)
+    text = re.sub(r"\t", " ", text)
+    text = text.strip(" ")
+    text = re.sub(
+        " +", " ", text
+    ).strip()  # get rid of multiple spaces and replace with a single
+    return text
+def clean_str(text):
+    search = ["أ","إ","آ","ة","_","-","/",".","،"," و "," يا ",'"',"ـ","'","ى","\\",'\n', '\t','&quot;','?','؟','!',"يٰ"]
+    replace = ["ا","ا","ا","ه"," "," ","","",""," و"," يا ","","","","ي","",' ', ' ',' ',' ? ',' ؟ ',' ! ','ي']
+    p_tashkeel = re.compile(r'[\u0617-\u061A\u064B-\u0652]')
+    text = re.sub(p_tashkeel,"", text)
+    p_longation = re.compile(r'(.)\1+')
+    subst = r"\1\1"
+    text = re.sub(p_longation, subst, text)
+    text = text.replace('وو', 'و')
+    text = text.replace('يي', 'ي')
+    text = text.replace('اا', 'ا')
+    text = re.sub("[إأآا]", "ا", text)
+    text = re.sub("[ىيٰ]", "ي", text)
+    text = text.replace('اا', 'ا')
+    text = re.sub("ة", "ه", text)
+    ##text = re.sub("گ", "ك", text)
+    string1 = re.sub(r"http:\S+", '',str(text))
+    string1 = re.sub(r"https:\S+", '',str(string1))
+    string1 = re.sub(r"www.\S+", '',str(string1))
+    string1 = re.sub(r"RT \S+", '',str(string1))
+    string1 = re.sub(r"@\S+", '',str(string1))
+    string1 = re.sub(r" RT ", '',str(string1))
+    string1 = re.sub(r"\S+.com", '',str(string1))
+    string1 = re.sub(r"#", " ",str(string1))
+    string1 = re.sub(r"_", " ",str(string1))
+    string1 = re.sub("\n", " ",str(string1))
+    string1 = re.sub("\t", " ",str(string1))
+    string1 = re.sub("\r", " ",str(string1))
+    string1 = re.sub("۰", " ",str(string1))
+    string1 = re.sub("۱", " ",str(string1))
+    string1 = re.sub("۲", " ",str(string1))
+    string1 = re.sub("۳", " ",str(string1))
+    string1 = re.sub("۴", " ",str(string1))
+    string1 = re.sub("۵", " ",str(string1))
+    string1 = re.sub("۶", " ",str(string1))
+    string1 = re.sub("۷", " ",str(string1))
+    string1 = re.sub("۸", " ",str(string1))
+    string1 = re.sub("۹", " ",str(string1))
+    ##string1 = give_emoji_free_text(string1)
+    string1 = re.sub(r'[^0-9\u0600-\u06ff\u0750-\u077f\ufb50-\ufbc1\ufbd3-\ufd3f\ufd50-\ufd8f\ufd50-\ufd8f\ufe70-\ufefc\uFDF0-\uFDFD.0-9]+', ' ', string1)
+    text_tokens = word_tokenize(string1)
+    string1 = ' '.join([word for word in text_tokens if not word in st_list])
+    string1= ''.join([i for i in str(string1) if not i.isdigit()])
+    string1 = re.sub('["*)#÷×%(،<>\*`؛`~≠&+@”_|…!,?.؟(“{}$_^;=:/-]', ' ', str(string1))
+    string1 = re.sub(r"\s+", " ", str(string1))
+    string1=' '.join( [w for w in string1.split() if len(w)>1] )
+    string1 = string1.rstrip()
+    text = string1.lstrip()
+    for i in range(0, len(search)):
+        text = text.replace(search[i], replace[i])   
+    text = text.strip()
+    return text
 def get_comment (account_name):
     comments=[]
-    for post in get_posts(account_name, pages=100, timeout=60, options={"comments" : "generator", "allow_extra_requests": True,"progress": True},cookies="facebook.com_cookies.txt" ):
-        for comment in post["comments_full"]:
-                comments.append(comment["comment_text"])
-                ##for reply in comment["replies"]:
-                    ##comments.append(reply["comment_text"])
-                    ##print(reply)
-                    ##if len(comments)>1000:
-                        ##break
-                if len(comments)>10000:
-                    print(len(comments))
-        if len(comments)>10000:
-                    print(len(comments))
-    print(len(comments))
-    return(comments)
+    reactors=[]
+    treactors=[]
+    nbrcomment=[]
+    nbrshare=[]
+    reaction=[[0 for i in range(10)] for i in range(10)]
+    i=0
+    ##url="https://www.facebook.com/TebbouneAbdelmadjid/posts/pfbid08XG2kL62AGuXanDjaVpv1zaAhuMjBFe7ivnMmKeSCeYiiRZgYAkHXtvUynJmeCpMlv"
+    ##post_urls=[url]
+    df2=pd.DataFrame(list(zip([],[])),columns=['name',"link"])
+    df1=pd.DataFrame(list(zip([])),columns=['text'])
+    print(df2)
+    print(df1)
+    sdd=0
+    for post in get_posts("TebbouneAbdelmadjid", timeout=60, options={"comments" : True, "reactors": True,"allow_extra_requests": True,"progress": True},cookies="/kaggle/input/yuuuuuuuu/facebook.com_cookies.txt" ):
+        if i<10:     
+            df11=pd.DataFrame(list(zip(post["comments_full"][rd]["comment_text"] for rd in range(30))),columns=['text'])
+            df1=pd.concat([df1,df11], ignore_index=True) 
+            reaction[0][i]=post["reactions"]["like"] if 'like' in post["reactions"] else 0
+            reaction[1][i]=post["reactions"]["love"] if 'love' in post["reactions"] else 0
+            reaction[2][i]=post["reactions"]["care"] if 'care' in post["reactions"] else 0
+            reaction[3][i]=post["reactions"]["haha"] if 'haha' in post["reactions"] else 0
+            reaction[4][i]=post["reactions"]["wow"] if 'wow' in post["reactions"] else 0
+            reaction[5][i]=post["reactions"]["angry"] if 'angry' in post["reactions"] else 0
+            reaction[6][i]=post["reactions"]["sad"] if 'sad' in post["reactions"] else 0
+            reaction[7][i]=post["time"].strftime("%m/%d/%h/%m/%s")
+            reaction[8][i]=post["comments"]
+            reaction[9][i]=post["shares"]       
+            listreactname=(post["reactors"][gf]["link"] for gf in range(len(post["reactors"])))
+            df2=pd.concat([df2,pd.DataFrame(list(zip(listreactname)),columns=["link"])], ignore_index=True)
+            i=i+1
+        else:
+            break
+    df1=df1["text"].astype('str').apply(clean_str)
+    return (df1, df2, reaction)
 
 
+
+
+
+def calculesent (comm):
+    i=0
+    allscore=[]
+    allsent=[]
+    for fg in comm:
+        sco,sen = sent(fg)
+        allscore.append(sco)
+        allsent.append(sen)
+    df=pd.DataFrame(list(zip(comm, allscore, allsent)),columns=['text','scoore1', 'label1'])
+    df=df.sort_values(by = ['label1','scoore1'],ascending=False)
+    print(len(df))
+      ###df.to_csv('ot.csv')
+    df1 = df[df['label1'] == 'positive' ]
+    print(len(df1))
+    df2 = df[df['label1'] == 'negative' ]
+    return (df1,df2)
+
+def visualise (reaction,text):
+    data0 = {reaction[7][9]: reaction[0][9], reaction[7][8]: reaction[0][8], reaction[7][7]: reaction[0][7],reaction[7][6]: reaction[0][6],reaction[7][5]: reaction[0][5],reaction[7][4]: reaction[0][4],reaction[7][3]: reaction[0][3],reaction[7][2]: reaction[0][2],reaction[7][1]: reaction[0][1],reaction[7][0]: reaction[0][0]}
+    data1 = {reaction[7][9]: reaction[1][9], reaction[7][8]: reaction[1][8], reaction[7][7]: reaction[1][7],reaction[7][6]: reaction[1][6],reaction[7][5]: reaction[1][5],reaction[7][4]: reaction[1][4],reaction[7][3]: reaction[1][3],reaction[7][2]: reaction[1][2],reaction[7][1]: reaction[1][1],reaction[7][0]: reaction[1][0]}
+    data2 = {reaction[7][9]: reaction[2][9], reaction[7][8]: reaction[2][8], reaction[7][7]: reaction[2][7],reaction[7][6]: reaction[2][6],reaction[7][5]: reaction[2][5],reaction[7][4]: reaction[2][4],reaction[7][3]: reaction[2][3],reaction[7][2]: reaction[2][2],reaction[7][1]: reaction[2][1],reaction[7][0]: reaction[2][0]}
+    data3 = {reaction[7][9]: reaction[3][9], reaction[7][8]: reaction[3][8], reaction[7][7]: reaction[3][7],reaction[7][6]: reaction[3][6],reaction[7][5]: reaction[3][5],reaction[7][4]: reaction[3][4],reaction[7][3]: reaction[3][3],reaction[7][2]: reaction[3][2],reaction[7][1]: reaction[3][1],reaction[7][0]: reaction[3][0]}
+    data4 = {reaction[7][9]: reaction[4][9], reaction[7][8]: reaction[4][8], reaction[7][7]: reaction[4][7],reaction[7][6]: reaction[4][6],reaction[7][5]: reaction[4][5],reaction[7][4]: reaction[4][4],reaction[7][3]: reaction[4][3],reaction[7][2]: reaction[4][2],reaction[7][1]: reaction[4][1],reaction[7][0]: reaction[4][0]}
+    data5 = {reaction[7][9]: reaction[5][9], reaction[7][8]: reaction[5][8], reaction[7][7]: reaction[5][7],reaction[7][6]: reaction[5][6],reaction[7][5]: reaction[5][5],reaction[7][4]: reaction[5][4],reaction[7][3]: reaction[5][3],reaction[7][2]: reaction[5][2],reaction[7][1]: reaction[5][1],reaction[7][0]: reaction[5][0]}
+    data6 = {reaction[7][9]: reaction[6][9], reaction[7][8]: reaction[6][8], reaction[7][7]: reaction[6][7],reaction[7][6]: reaction[6][6],reaction[7][5]: reaction[6][5],reaction[7][4]: reaction[6][4],reaction[7][3]: reaction[6][3],reaction[7][2]: reaction[6][2],reaction[7][1]: reaction[6][1],reaction[7][0]: reaction[6][0]}
+    data7 = {reaction[7][9]: reaction[8][9], reaction[7][8]: reaction[8][8], reaction[7][7]: reaction[8][7],reaction[7][6]: reaction[8][6],reaction[7][5]: reaction[8][5],reaction[7][4]: reaction[8][4],reaction[7][3]: reaction[8][3],reaction[7][2]: reaction[8][2],reaction[7][1]: reaction[8][1],reaction[7][0]: reaction[8][0]}
+    data8 = { reaction[7][9]: reaction[9][9], reaction[7][8]: reaction[9][8], reaction[7][7]: reaction[9][7],reaction[7][6]: reaction[9][6],reaction[7][5]: reaction[9][5],reaction[7][4]: reaction[9][4],reaction[7][3]: reaction[9][3],reaction[7][2]: reaction[9][2],reaction[7][1]: reaction[9][1],reaction[7][0]: reaction[9][0]}
+    print(data0)
+    names0 = list(data0.keys())
+    values0 = list(data0.values())
+    names1 = list(data1.keys())
+    values1 = list(data1.values())
+    
+    names2 = list(data2.keys())
+    values2 = list(data2.values())
+    names3 = list(data3.keys())
+    values3 = list(data3.values())
+    names4 = list(data4.keys())
+    values4 = list(data4.values())
+    names5 = list(data5.keys())
+    values5 = list(data5.values())
+    names6 = list(data6.keys())
+    values6 = list(data6.values())
+
+    names7 = list(data7.keys())
+    values7 = list(data7.values())
+    names8 = list(data8.keys())
+    values8 = list(data8.values())
+    
+    fig, axs = plt.subplots(1, 1, figsize=(9,5), sharey=True)
+    axs.plot(names0, values0,color='tab:blue')
+    plt.xticks(rotation = 90)
+    plt.title("Like Per Post")
+    plt.ylabel("Number of Like")
+    plt.xlabel("Post Date")
+    
+    fig1, axs1 = plt.subplots(1, 1, figsize=(9, 5), sharey=True)
+    axs1.plot(names1, values1,color='aquamarine')
+    plt.xticks(rotation = 90)
+    plt.title("Love Per Post")
+    plt.ylabel("Number of Love")
+    plt.xlabel("Post Date")
+
+    fig2, axs2 = plt.subplots(1, 1, figsize=(9, 5), sharey=True)
+    axs2.plot(names2, values2,color='mediumseagreen')
+    plt.xticks(rotation = 90)
+    plt.title("Care Per Post")
+    plt.ylabel("Number of Care")
+    plt.xlabel("Post Date")
+
+    fig1, axs1 = plt.subplots(1, 1, figsize=(9, 5), sharey=True)
+    axs1.plot(names3, values3,color='xkcd:sky blue')
+    plt.xticks(rotation = 90)
+    plt.title("Haha Per Post")
+    plt.ylabel("Number of Haha")
+    plt.xlabel("Post Date")
+
+    fig4, axs4 = plt.subplots(1, 1, figsize=(9, 5), sharey=True)
+    axs4.plot(names4, values4,color='tab:purple')
+    plt.xticks(rotation = 90)
+    plt.title("Wow Per Post")
+    plt.ylabel("Number of Wow")
+    plt.xlabel("Post Date")
+
+    fig5, axs5 = plt.subplots(1, 1, figsize=(5, 9), sharey=True)
+    axs5.plot(names5, values5)
+
+    fig6, axs6 = plt.subplots(1, 1, figsize=(5, 9), sharey=True)
+    axs6.plot(names6, values6)
+
+    fig7, axs7 = plt.subplots(1, 1, figsize=(5, 9), sharey=True)
+    axs7.plot(names7, values7)
+    fig8, axs8 = plt.subplots(1, 1, figsize=(5, 9), sharey=True)
+    axs8.plot(names8, values8)
+    
+    
+    text_ar= list(text)
+    text_ar=preprocess_ar(text_ar)
+    print(text_ar)
+    text_ar=re.sub("\[","",str(text_ar))
+    text_ar=re.sub("\]","",str(text_ar))
+      ####print(str(text_ar).encode('unicode-escape').decode('utf-8'))
+    data = arabic_reshaper.reshape(text_ar)
+      ###print(data)
+    data = get_display(data) # add this line
+      ###print(data)
+    WordCloud1 = WordCloud(font_path='arial', background_color='white',mode='RGB', width=2000, height=1000).generate(str(data))
+##      im = Image.open(WordCloud1)
+##      data = io.BytesIO()
+##      im.save(data, "JPEG")
+##      encoded_img_data = base64.b64encode(data.getvalue())
+##    plt.imshow(WordCloud1)
+##    plt.axis("off")
+##    plt.show()
+    return(fig1,fig2,fig3,fig4,fig5,fig6,fig7,fig8,WordCloud1)
 
 
 
@@ -104,10 +336,18 @@ def list2json (text,scor,sent):
     return pretty_json
     
 
+def query1(payload):
+	response = requests.post(API_URL2, headers=headers, json=payload)
+	return response.json()
 def query(payload):
     data = json.dumps(payload)
-    response = requests.request("POST", API_URL3, headers=headers, data=data)
+    response = requests.request("POST", API_URL2, headers=headers, data=data)
     return json.loads(response.content.decode("utf-8"))
+
+
+
+
+
 
 @app.route("/hello")
 def index():
@@ -119,13 +359,7 @@ def greeter1():
         return render_template("sentimentoftext.html")
 @app.route("/sentiment", methods=['POST', 'GET'])
 def greeter2():
-        data2 = query({"inputs": request.form['name_input']})
-        data=str(data2).split(",")
-        data=data[0]
-        data=str(data).split(":")
-        data=data[1]
-        data=re.sub("'","",str(data))
-        flash(data)
+        gr.Interface.load("models/Ammar-alhaj-ali/arabic-MARBERT-sentiment").launch()
         return render_template("sentimentoftext.html")
 @app.route("/retoursentiment", methods=['POST', 'GET'])
 def greeter3():
@@ -151,65 +385,42 @@ def greeter6():
 def greeter7():
 	###flash("Hi " + str(request.form['name_input1']) + ", great to see you!")
 	return render_template("index.html")
-###sa = SentimentAnalyzer("CAMeL-Lab/bert-base-arabic-camelbert-da-sentiment")
+
 
 @app.route("/SFP", methods=['POST', 'GET'])
+
 def greeter8():
-      label1=[]
-      t = time.time()
-      c=get_comment(account_name=request.form['name_input3'])
-      ###allscore=sa.predict(sentences)
-      allscore = query({"inputs": c})
-      flash(allscore)
-      score1=[]
-      ####try:
-      ff1=''
-      ff2=''
-      ff3=''
-      ff4=''
-      ff5=''
-      ff6=''
-      for j in allscore:
-         allscoresplit=str(j).split(",")
-         label=allscoresplit[0]
-         ###print(str(allscoresplit))
-         score=allscoresplit[1]
-         score=re.sub(" 'score': ","",score)
-         score=re.sub("}","",score)
-         score=round(float(score), 3)
-         score1.append(str(score))
-         label=re.sub("\\[{'label': '","",label)
-         label=re.sub("'","",label)
-         label1.append(label)
-      ##flash(Counter(label1))
-      df=pd.DataFrame(list(zip(c, score1, label1)),columns=['text','scoore1', 'label1'])
-      df=df.sort_values(by = ['label1','scoore1'],ascending=False)
-      print(df)
-      df1 = df[df['label1'] == 'positive' ]
-      df2 = df[df['label1'] == 'negative' ]
-      ff1=df1['text'].values[0]
-      ff2=df1['text'].values[1]
-      ff3=df1['text'].values[2]
-      ff4=df2['text'].values[0]
-      ff5=df2['text'].values[1]
-      ff6=df2['text'].values[2]
-      text_ar= list(df1["text"])
-      data = arabic_reshaper.reshape(text_ar)
-      data = get_display(data) # add this line
-      WordCloud = WordCloud(font_path='arial', background_color='white',mode='RGB', width=2000, height=1000).generate(data)
-      im = Image.open(WordCloud)
-      data = io.BytesIO()
-      im.save(data, "JPEG")
-      encoded_img_data = base64.b64encode(data.getvalue())
-##          plt.imshow(WordCloud)
-##          plt.axis("off")
-##          plt.show()
-##          flash(WordCloud)
-      tiiii=time.time()-t
-      flash(tiiii)
-      ##except Exception as e:
-               ###flash(e)
-      return render_template("SFP.html",v1=ff4,v2=ff5,v3=ff6,v4=ff1,v5=ff2,v6=ff3,wrd=encoded_img_data.decode('utf-8'))
+    t = time.time()
+    text,user,reaction=get_comment(account_name="TebbouneAbdelmadjid")
+    tiiii=time.time()-t
+    print(tiiii)
+    t = time.time()
+    text=list(text)[1:-2]
+    print(text)
+    dff1,dff2=calculesent(list(text))
+    tiiii=time.time()-t
+    print(tiiii)
+    f1,f2,f2,f3,f4,f5,f6,f7,f8,F9= visualise(reaction,dff2)
+    tiiii=time.time()-t
+    plt.imshow(f1)
+    f1.show()
+    plt.imshow(f2)
+    f2.show()
+    plt.imshow(f3)
+    f3.show()
+    plt.imshow(f4)
+    f4.show()
+    plt.imshow(f5)
+    f5.show()
+    plt.imshow(f6)
+    f6.show()
+    plt.imshow(f7)
+    f7.show()
+    plt.imshow(f8)
+    f8.show()
+    plt.imshow(F9)
+    F9.show()
+    return render_template("SFP.html",v1=ff4,v2=ff5,v3=ff6,v4=ff1,v5=ff2,v6=ff3,wrd=encoded_img_data.decode('utf-8'))
 @app.route("/retourSFP", methods=['POST', 'GET'])
 def greeter9():
 	###flash("Hi " + str(request.form['name_input1']) + ", great to see you!")
