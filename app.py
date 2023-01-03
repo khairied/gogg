@@ -36,7 +36,6 @@ from wordcloud import WordCloud
 import arabic_reshaper # this was missing in your code
 
 # os.chdir("C:")
-from tabulate import tabulate
 import json
 from collections import Counter
 from facebook_scraper import get_profile,get_posts, get_friends
