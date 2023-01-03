@@ -355,7 +355,7 @@ def greeter1():
 @app.route("/sentiment", methods=['POST', 'GET'])
 def greeter2():
         gr.Interface.load("models/Ammar-alhaj-ali/arabic-MARBERT-sentiment").launch()
-        return render_template("sentimentoftext.html")
+        ##return render_template("sentimentoftext.html")
 @app.route("/retoursentiment", methods=['POST', 'GET'])
 def greeter3():
 	return render_template("index.html")
