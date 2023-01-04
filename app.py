@@ -53,9 +53,37 @@ def sent(f):
         senti=data[12:20]
         score=float(data[74:80])
     except:
-        senti="neutral'"
+        senti="neutral"
         score="0.00"
     return (score,senti)
+
+def topic(f):
+    try:
+        response = requests.post("https://kheireddinedaouadi-dztopic.hf.space/run/predict", json={"data": [f]}).json()
+    ###print(response)
+        data = str(response["data"])
+    ##print(data["label"])
+        senti=data[12:20]
+        score=float(data[74:80])
+    except:
+        senti="neutral"
+        score="0.00"
+    return (score,senti)
+def hate(f):
+    try:
+        response = requests.post("https://kheireddinedaouadi-hate.hf.space/run/predict", json={"data": [f]}).json()
+    ###print(response)
+        data = str(response["data"])
+    ##print(data["label"])
+        senti=data[12:20]
+        score=float(data[74:80])
+    except:
+        senti="neutral"
+        score="0.00"
+    return (score,senti)
+
+
+
 
 def preprocess_ar(text):
     processedText = []
@@ -344,6 +372,9 @@ def query(payload):
 
 
 
+
+
+
 @app.route("/hello")
 def index():
 	flash("Please Select Function!!!!")
@@ -351,10 +382,24 @@ def index():
 
 @app.route("/greet", methods=['POST', 'GET'])
 def greeter1():
+	request.form['name_input1']
         return render_template("sentimentoftext.html")
-@app.route("/sentiment", methods=['POST', 'GET'])
+@app.route("/calculesent", methods=['POST', 'GET'])
 def greeter2():
-        return render_template("sentimentoftext.html")
+	v,s=sent(request.form['name_input1'])
+	c=str(s)+str(v)
+        return render_template("sentimentoftext.html",c)
+@app.route("/calculetopic", methods=['POST', 'GET'])
+def greeter13():
+	v,s=sent(request.form['name_input1'])
+	c=str(s)+str(v)
+        return render_template("sentimentoftext.html",c)
+@app.route("/calculehate", methods=['POST', 'GET'])
+def greeter23():
+	v,s=sent(request.form['name_input1'])
+	c=str(s)+str(v)
+        return render_template("sentimentoftext.html",c)
+
 @app.route("/retoursentiment", methods=['POST', 'GET'])
 def greeter3():
 	return render_template("index.html")
