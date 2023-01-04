@@ -1,52 +1,102 @@
+
 <!DOCTYPE html>
+<html lang="en" style="margin: 0; padding: 0; min-height: 100%">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1"
+		/>
 
-<html>
-    <title> NLP-DZ API for Sentiment Analysis </title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-<body>
+		
+		<meta property="og:url" content="https://gradio.app/" />
+		<meta property="og:type" content="website" />
+		<meta property="og:image" content="" />
+		<meta property="og:title" content="alger-ia/dziribert_sentiment" />
+		<meta
+			property="og:description"
+			content=""
+		/>
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:creator" content="@teamGradio" />
+		<meta name="twitter:title" content="alger-ia/dziribert_sentiment" />
+		<meta
+			name="twitter:description"
+			content=""
+		/>
+		<meta name="twitter:image" content="" />
 
-    <h1> 🤗 Sentiment Analysis powered by NLP-DZ API 🤗 </h1>
-<textarea rows='14' id="input_text" placeholder="Enter your text here...."></textarea>
-<button class="get_values" onclick="startUpdate(event)">😻 GET SENTIMENT ☹️</button>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+			gtag("config", "UA-156449732-1");
+			window.__gradio_mode__ = "app";
+		</script>
 
-<textarea rows='14' id="result" placeholder="Wait for the result"></textarea>
-    
-    <form action="retoursentiment" method="post">
-        <br>
-        <input type="submit" value="Retour" id="retoursentiment">
-    </form>
+		<script>window.gradio_config = {"version":"3.15.0","mode":"interface","dev_mode":false,"components":[{"id":40,"type":"markdown","props":{"value":"\u003ch1 style=\u0027text-align: center; margin-bottom: 1rem\u0027\u003ealger-ia/dziribert_sentiment\u003c/h1\u003e","name":"markdown","visible":true,"style":{}}},{"id":41,"type":"row","props":{"type":"row","variant":"default","visible":true,"style":{"equal_height":false}}},{"id":42,"type":"column","props":{"type":"column","variant":"panel","scale":1,"min_width":320,"visible":true,"style":{}}},{"id":43,"type":"column","props":{"type":"column","variant":"default","scale":1,"min_width":320,"visible":true,"style":{}}},{"id":18,"type":"textbox","props":{"lines":1,"max_lines":20,"value":"","type":"text","label":"Input","show_label":true,"name":"textbox","visible":true,"style":{}}},{"id":44,"type":"form","props":{"type":"form","visible":true,"style":{}}},{"id":45,"type":"row","props":{"type":"row","variant":"default","visible":true,"style":{}}},{"id":46,"type":"button","props":{"value":"Clear","variant":"secondary","name":"button","visible":true,"style":{}}},{"id":47,"type":"button","props":{"value":"Submit","variant":"primary","name":"button","visible":true,"style":{}}},{"id":48,"type":"column","props":{"type":"column","variant":"panel","scale":1,"min_width":320,"visible":true,"style":{}}},{"id":19,"type":"label","props":{"label":"Classification","show_label":true,"interactive":false,"name":"label","visible":true,"style":{}}},{"id":49,"type":"row","props":{"type":"row","variant":"default","visible":true,"style":{}}}],"theme":"huggingface","css":null,"title":"alger-ia/dziribert_sentiment","is_space":true,"enable_queue":true,"show_error":false,"show_api":true,"is_colab":false,"layout":{"id":39,"children":[{"id":40},{"id":41,"children":[{"id":42,"children":[{"id":43,"children":[{"id":44,"children":[{"id":18}]}]},{"id":45,"children":[{"id":46},{"id":47}]}]},{"id":48,"children":[{"id":19},{"id":49,"children":[]}]}]}]},"dependencies":[{"targets":[47],"trigger":"click","inputs":[18],"outputs":[19],"backend_fn":true,"js":null,"queue":null,"api_name":"predict","scroll_to_output":true,"show_progress":true,"every":null,"batch":false,"max_batch_size":4,"cancels":[]},{"targets":[46],"trigger":"click","inputs":[],"outputs":[18,19,43],"backend_fn":false,"js":"() =\u003e [\"\", null, {\"variant\": null, \"visible\": true, \"__type__\": \"update\"}]\n                ","queue":false,"api_name":null,"scroll_to_output":false,"show_progress":true,"every":null,"batch":false,"max_batch_size":4,"cancels":[]}]};</script>
 
-<script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link
+			rel="preconnect"
+			href="https://fonts.gstatic.com"
+			crossorigin="anonymous"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css?family=IBM Plex Mono"
+			rel="stylesheet"
+		/>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.1/iframeResizer.contentWindow.min.js"></script>
+		<script type="module" crossorigin src="./assets/index.0b923826.js"></script>
+		
+	</head>
 
-function startUpdate(e) {
- 
-  updateTextArea();
-
-}
-
-
- function updateTextArea() {
-  let url = "https://hf.space/embed/KheireddineDaouadi/hate/+/api/predict/"; // url
-  var text = document.getElementById("input_text").value;
-
-  //console.log(text);
-  
-  fetch(url,  { method: "POST", body: JSON.stringify({"data": [text]
-
-}), headers: { "Content-Type": "application/json" } })
-    .then(response => response.json())
-    .then(data => {
-      let textArea = document.getElementById("result");
-      // parsing the JSON value to string
-      textArea.value = JSON.stringify(data.data);
-    })
- 
-
-  }
-</script>
-    
-</body>
+	<body style="width: 100%; margin: 0; padding: 0; height: 100%">
+		<gradio-app control_page_title="true">
+			<div
+				id="root"
+				style="display: flex; flex-direction: column; flex-grow: 1"
+			></div>
+		</gradio-app>
+		<script>
+			const ce = document.getElementsByTagName("gradio-app");
+			if (ce[0]) {
+				ce[0].addEventListener("domchange", () => {
+					document.body.style.padding = "0";
+				});
+				document.body.style.padding = "0";
+			}
+		</script>
+	</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
