@@ -26,7 +26,7 @@ function startUpdate(e) {
 
 
  function updateTextArea() {
-  let url = "https://hf.space/embed/KheireddineDaouadi/NLPz/+/api/predict/"; // url
+  let url = "https://hf.space/embed/KheireddineDaouadi/hate/+/api/predict/"; // url
   var text = document.getElementById("input_text").value;
 
   //console.log(text);
@@ -38,7 +38,7 @@ function startUpdate(e) {
     .then(data => {
       let textArea = document.getElementById("result");
       // parsing the JSON value to string
-      textArea.value = JSON.stringify(data);
+      textArea.value = JSON.stringify(data.data);
     })
  
 
