@@ -5,21 +5,30 @@
 div.relative {
   position: fixed;
   width: 50%;
-  bottom: 231px;
-  left: 500px;
+  bottom: 281px;
+  left: 530px;
   border: 0px;
 } 
 div.absolute {
   position: fixed;
   width: 50%;
-  bottom: 230px;
+  bottom: 280px;
+  left: 30px;
   border: 0px;
 }
 div.fixed {
   position: fixed;
   width: 50%;
-  bottom: 270px;
-  left: 280px;
+  bottom: 370px;
+  left: 310px;
+  border: 0px;
+} 
+
+div.sticky {
+  position: fixed;
+  width: 50%;
+  bottom: 200px;
+  left: 310px;
   border: 0px;
 } 
 </style>
@@ -51,11 +60,13 @@ div.fixed {
         <br>
         <input type="submit" value="   Hateful Verification   " id="calculhate">
     </form>
+</div> 
+<div class="sticky">
 <form action="retoursentiment" method="post">
         <br>
         <input type="submit" value="             Retour             " id="retoursentiment">
     </form>
-</div> 
+</div>
 <div class="relative">
 <textarea rows='14' id="result" placeholder="Please Wait for the result" ></textarea>
 </div>
@@ -63,5 +74,4 @@ div.fixed {
 
 </body>
 </html>
-
 
