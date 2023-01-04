@@ -3,14 +3,14 @@
 <head>
 <style>
 div.relative {
-  position: relative;
+  position: fixed;
   width: 50%;
-  bottom: 25px;
+  bottom: 231px;
   left: 500px;
   border: 0px;
 } 
 div.absolute {
-  position: absolute;
+  position: fixed;
   width: 50%;
   bottom: 230px;
   border: 0px;
@@ -18,7 +18,7 @@ div.absolute {
 div.fixed {
   position: fixed;
   width: 50%;
-  bottom: 240px;
+  bottom: 270px;
   left: 280px;
   border: 0px;
 } 
@@ -30,6 +30,7 @@ div.fixed {
 
 <html>
     <title> NLP-DZ API </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 <body>
 
     <h1> 🤗 NLP-DZ API 🤗 </h1>
