@@ -8,7 +8,8 @@
     <h1> 🤗 Sentiment Analysis powered by NLP-DZ API 🤗 </h1>
 <textarea rows='14' id="input_text" placeholder="Enter your text here...."></textarea>
 <button class="get_values" onclick="startUpdate(event)">😻 GET SENTIMENT ☹️</button>
-
+<button class="get_values" onclick="startUpdate(event)"> GET TOPIC </button>
+<button class="get_values" onclick="startUpdate(event)"> HATEFUL VERIFICATION</button>
 <textarea rows='14' id="result" placeholder="Wait for the result"></textarea>
     
     <form action="retoursentiment" method="post">
@@ -18,8 +19,6 @@
 
 <script>
 	
-<iframe src="https://kheireddinedaouadi-nlpz.hf.space/?__theme=light&amp;__sign=eyJhbGciOiJFZERTQSJ9.eyJzdWIiOiJLaGVpcmVkZGluZURhb3VhZGkvTkxQeiIsImV4cCI6MTY3MjkxMzkxMn0.bnnO8qXRgE2gTw5hF9euHtctaT5Eq4OVwE9yXeWmlKF-8KZNet6-ikd77mN1V6zQvPTnAIjo670VydzDP6m9CA" title="Space app" class="container p-0 flex-grow overflow-hidden space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; clipboard-write; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads" scrolling="no"></iframe></div></main>
-
 function startUpdate(e) {
  
   updateTextArea();
