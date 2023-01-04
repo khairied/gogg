@@ -1,4 +1,32 @@
 <!DOCTYPE html>
+<html>
+<head>
+<style>
+div.relative {
+  position: relative;
+  width: 50%;
+  bottom: 25px;
+  left: 500px;
+  border: 3px solid #8AC007;
+} 
+div.absolute {
+  position: absolute;
+  width: 50%;
+  bottom: 230px;
+  border: 3px solid #8AC007;
+}
+div.fixed {
+  position: fixed;
+  width: 50%;
+  bottom: 270px;
+  left: 280px;
+  border: 3px solid #8AC007;
+} 
+</style>
+</head>
+
+
+<!DOCTYPE html>
 
 <html>
     <title> NLP-DZ API </title>
@@ -6,118 +34,34 @@
 <body>
 
     <h1> 🤗 NLP-DZ API 🤗 </h1>
+<div class="absolute">
 <textarea rows='14' id="input_text" placeholder="Enter your text here...."></textarea>
+</div>
+<div class="fixed">
 <form action="calculesent" method="post">
         <br>
         <input type="submit" value="😻 Get Sentiment ☹️" id="calculsent">
     </form>
 <form action="calculetopic" method="post">
         <br>
-        <input type="submit" value=" Get Tppic " id="calcultopic">
+        <input type="submit" value="          Get Topic          " id="calcultopic">
     </form>
 
 <form action="calculehate" method="post">
         <br>
-        <input type="submit" value=" Hateful Verification " id="calculhate">
+        <input type="submit" value="   Hateful Verification   " id="calculhate">
     </form>
-<textarea rows='14' id="result" placeholder="Please Wait for the result" ></textarea>
-    <form action="retoursentiment" method="post">
+<form action="retoursentiment" method="post">
         <br>
-        <input type="submit" value="Retour" id="retoursentiment">
+        <input type="submit" value="             Retour             " id="retoursentiment">
     </form>
-
-<script>
-	
-function startUpdate(e) {
- 
-  updateTextArea();
-
-}
+</div> 
+<div class="relative">
+<textarea rows='14' id="result" placeholder="Please Wait for the result" ></textarea>
+</div>
 
 
- function updateTextArea() {
-  let url = "https://hf.space/embed/KheireddineDaouadi/DzSenti/+/api/predict/"; // url
-  var text = document.getElementById("input_text").value;
-
-  //console.log(text);
-  
-  fetch(url,  { method: "POST", body: JSON.stringify({"data": [text]
-
-}), headers: { "Content-Type": "application/json" } })
-    .then(response => response.json())
-    .then(data => {
-      let textArea = document.getElementById("result");
-      // parsing the JSON value to string
-      textArea.value = JSON.stringify(data.data);
-    })
- 
-
-  }	
-	
-	
-	
-	
-function startUpdate1(e) {
- 
-  updateTextArea1();
-
-}
-
-
- function updateTextArea1() {
-	 
-  let url = "https://hf.space/embed/KheireddineDaouadi/DzTopic/+/api/predict/"; // url
-  var text = document.getElementById("input_text").value;
-
-  //console.log(text);
-  
-  fetch(url,  { method: "POST", body: JSON.stringify({"data": [text]
-
-}), headers: { "Content-Type": "application/json" } })
-    .then(response => response.json())
-    .then(data => {
-      let textArea = document.getElementById("result");
-      // parsing the JSON value to string
-      textArea.value = JSON.stringify(data.data);
-    })
- 
-
-  }
-
-	
-function startUpdate2(e) {
- 
-  updateTextArea2();
-
-}
-
-
- function updateTextArea2() {
-	 
-  let url = "https://hf.space/embed/KheireddineDaouadi/DzTopic/+/api/predict/"; // url
-  var text = document.getElementById("input_text").value;
-
-  //console.log(text);
-  
-  fetch(url,  { method: "POST", body: JSON.stringify({"data": [text]
-
-}), headers: { "Content-Type": "application/json" } })
-    .then(response => response.json())
-    .then(data => {
-      let textArea = document.getElementById("result");
-      // parsing the JSON value to string
-      textArea.value = JSON.stringify(data.data);
-    })
- 
-
-  }
-	
-	
-</script>
-    
 </body>
 </html>
-
-
 
 
