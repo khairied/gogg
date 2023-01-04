@@ -382,22 +382,21 @@ def index():
 
 @app.route("/greet", methods=['POST', 'GET'])
 def greeter1():
-	request.form['name_input1']
         return render_template("sentimentoftext.html")
 @app.route("/calculesent", methods=['POST', 'GET'])
 def greeter2():
-	v,s=sent(request.form['name_input1'])
-	c=str(s)+str(v)
+        v,s=sent(request.form['name_input1'])
+        c=str(s)+str(v)
         return render_template("sentimentoftext.html",c)
 @app.route("/calculetopic", methods=['POST', 'GET'])
 def greeter13():
-	v,s=sent(request.form['name_input1'])
-	c=str(s)+str(v)
+        v,s=topic(request.form['name_input1'])
+        c=str(s)+str(v)
         return render_template("sentimentoftext.html",c)
 @app.route("/calculehate", methods=['POST', 'GET'])
 def greeter23():
-	v,s=sent(request.form['name_input1'])
-	c=str(s)+str(v)
+        v,s=hate(request.form['name_input1'])
+        c=str(s)+str(v)
         return render_template("sentimentoftext.html",c)
 
 @app.route("/retoursentiment", methods=['POST', 'GET'])
