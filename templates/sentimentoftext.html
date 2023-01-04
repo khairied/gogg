@@ -1,49 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-div.relative {
-  position: fixed;
-  width: 50%;
-  left: 560px;
-  border: 0px;
-} 
-div.absolute {
-  position: fixed;
-  width: 50%;
-  left: 60px;
-  border: 0px;
-}
-div.fixed {
-  position: fixed;
-  width: 50%;
-  left: 320px;
-  border: 0px;
-} 
-
-div.sticky {
-  position: fixed;
-  width: 50%;
-  bottom: 200px;
-  left: 370px;
-  border: 0px;
-} 
-</style>
-</head>
-
-
-<!DOCTYPE html>
-
 <html>
     <title> NLP-DZ API </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 <body>
 
     <h1> 🤗 NLP-DZ API 🤗 </h1>
-<div class="relative">
 <textarea rows='14' id="input_text" placeholder="Enter your text here...."></textarea>
-</div>
-<div class="fixed">
+
 <form action="calculesent" method="post">
         <br>
         <input type="submit" value="😻 Get Sentiment ☹️" id="calculsent">
@@ -57,14 +22,10 @@ div.sticky {
         <br>
         <input type="submit" value="   Hateful Verification   " id="calculhate">
     </form>
-</div> 
-<div class="sticky">
 <form action="retoursentiment" method="post">
         <br>
         <input type="submit" value="⏎Retur" id="retoursentiment">
     </form>
-</div>
-<div class="relative">
 <textarea rows='14' id="result" placeholder="Please Wait for the result" >'{{c}}</textarea>
 </div>
 
