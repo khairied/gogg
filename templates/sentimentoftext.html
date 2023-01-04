@@ -8,8 +8,8 @@
     <h1> 🤗 Sentiment Analysis powered by NLP-DZ API 🤗 </h1>
 <textarea rows='14' id="input_text" placeholder="Enter your text here...."></textarea>
 <button class="get_values" onclick="startUpdate(event)">😻 GET SENTIMENT ☹️</button>
-<button class="get_values" onclick="startUpdate(event)"> GET TOPIC </button>
-<button class="get_values" onclick="startUpdate(event)"> HATEFUL VERIFICATION</button>
+<button class="get_values" onclick="startUpdate1(event)"> GET TOPIC </button>
+<button class="get_values" onclick="startUpdate2(event)"> HATEFUL VERIFICATION</button>
 <textarea rows='14' id="result" placeholder="Wait for the result"></textarea>
     
     <form action="retoursentiment" method="post">
@@ -27,7 +27,7 @@ function startUpdate(e) {
 
 
  function updateTextArea() {
-  let url = "https://hf.space/embed/KheireddineDaouadi/hate/+/api/predict/"; // url
+  let url = "https://hf.space/embed/KheireddineDaouadi/DzSenti/+/api/predict/"; // url
   var text = document.getElementById("input_text").value;
 
   //console.log(text);
@@ -44,6 +44,66 @@ function startUpdate(e) {
  
 
   }	
+	
+	
+	
+	
+function startUpdate1(e) {
+ 
+  updateTextArea1();
+
+}
+
+
+ function updateTextArea1() {
+	 
+  let url = "https://hf.space/embed/KheireddineDaouadi/DzTopic/+/api/predict/"; // url
+  var text = document.getElementById("input_text").value;
+
+  //console.log(text);
+  
+  fetch(url,  { method: "POST", body: JSON.stringify({"data": [text]
+
+}), headers: { "Content-Type": "application/json" } })
+    .then(response => response.json())
+    .then(data => {
+      let textArea = document.getElementById("result");
+      // parsing the JSON value to string
+      textArea.value = JSON.stringify(data.data);
+    })
+ 
+
+  }
+
+	
+function startUpdate2(e) {
+ 
+  updateTextArea2();
+
+}
+
+
+ function updateTextArea2() {
+	 
+  let url = "https://hf.space/embed/KheireddineDaouadi/DzTopic/+/api/predict/"; // url
+  var text = document.getElementById("input_text").value;
+
+  //console.log(text);
+  
+  fetch(url,  { method: "POST", body: JSON.stringify({"data": [text]
+
+}), headers: { "Content-Type": "application/json" } })
+    .then(response => response.json())
+    .then(data => {
+      let textArea = document.getElementById("result");
+      // parsing the JSON value to string
+      textArea.value = JSON.stringify(data.data);
+    })
+ 
+
+  }
+	
+	
 </script>
     
 </body>
