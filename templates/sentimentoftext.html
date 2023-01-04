@@ -38,7 +38,7 @@ function startUpdate(e) {
     .then(data => {
       let textArea = document.getElementById("result");
       // parsing the JSON value to string
-      textArea.value = data["data"][0];
+      textArea.value = JSON.stringify(data);
     })
  
 
