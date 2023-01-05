@@ -385,12 +385,28 @@ def greeter1():
         return render_template("sentimentoftext.html")
 @app.route("/calculesent", methods=['POST', 'GET'])
 def greeter2():
+	if request.form['action'] == '😻 Get Sentiment ☹️':
+		v,s=sent(request.form['name_input1'])
+                print(v)
+                print(s)
+                c="The Sentiment Expressed In "+request.form['name_input1']+"\nis :"+str(s)+"\nThe Sentiment score is : "+str(v)
+                return render_template("sentimentoftext.html",v1=c)
+        elif request.form['action'] == ' Topic Classification ':
+                v,s=topic(request.form['name_input1'])
+                print(v)
+                print(s)
+                c="The Topic Expressed In "+request.form['name_input1']+"\nis :"+str(s)+"\nThe Topic score is : "+str(v)
+                return render_template("sentimentoftext.html",v1=c)
+        elif request.form['action'] == ' Hateful Verification ':
+                v,s=hate(request.form['name_input1'])
+                print(v)
+                print(s)
+                c="Your Text "+request.form['name_input1']+"\ncould be :"+str(s)+"\nThe hateful score is : "+str(v)
+                return render_template("sentimentoftext.html",v1=c)
+        else:
+                return render_template("sentimentoftext.html")
         print(str(request.form['name_input1']))
-        v,s=sent(request.form['name_input1'])
-        print(v)
-        print(s)
-        c=str(s)+str(v)
-        return render_template("sentimentoftext.html",v1=c)
+        
 @app.route("/calculetopic", methods=['POST', 'GET'])
 def greeter13():
         v,s=topic(request.form['name_input1'])
