@@ -385,10 +385,10 @@ def greeter1():
         return render_template("sentimentoftext.html")
 @app.route("/calculesent", methods=['POST', 'GET'])
 def greeter2():
-	print(str(request.form['name_input1']))
+        print(str(request.form['name_input1']))
         v,s=sent(request.form['name_input1'])
-	print(v)
-	print(s)
+        print(v)
+        print(s)
         c=str(s)+str(v)
         return render_template("sentimentoftext.html",v1=c)
 @app.route("/calculetopic", methods=['POST', 'GET'])
