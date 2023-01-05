@@ -391,7 +391,7 @@ def greeter2():
                 return render_template("sentimentoftext.html",v1=c)
         elif request.form['action'] == ' Topic Classification ':
                 v,s=topic(request.form['name_input1'])
-                c="The Topic Expressed In "+str(request.form['name_input1'])+"\nis :"+str(s)+"\nThe Topic score is : "+str(v)
+                c="The Topic Expressed In "+str(request.form['name_input1'])+"\nis :"+str(s)+"\nThe Topic scor is : "+str(v)
                 return render_template("sentimentoftext.html",v1=c)
         elif request.form['action'] == ' Hateful Verification ':
                 v,s=hate(request.form['name_input1'])
