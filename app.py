@@ -386,7 +386,7 @@ def greeter1():
 @app.route("/calculesent", methods=['POST', 'GET'])
 def greeter2():
 	if request.form['action'] == '😻 Get Sentiment ☹️':
-		v,s=sent(request.form['name_input1'])
+		##v,s=sent(request.form['name_input1'])
                 ##c="The Sentiment Expressed In "+str(request.form['name_input1'])+"\nis :"+str(s)+"\nThe Sentiment score is : "+str(v)
                 return render_template("sentimentoftext.html",v1=c)
         elif request.form['action'] == ' Topic Classification ':
