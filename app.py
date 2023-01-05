@@ -46,7 +46,7 @@ stopwords = ['إذ', 'إذا', 'إذما', 'إذن', 'أف', 'أقل', 'أكثر
 st_list=stopwords
 def sent(f):
     ##try:
-        response = requests.post("https://kheireddinedaouadi-hate.hf.space/run/predict", json={"data": [f]}).json()
+        response = requests.post("kheireddinedaouadi-dzsenti.hf.space/run/predict", json={"data": [f]}).json()
     ###print(response)
         data = str(response["data"])
     ##print(data["label"])
