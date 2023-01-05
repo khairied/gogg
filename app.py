@@ -385,19 +385,19 @@ def greeter1():
         return render_template("sentimentoftext.html")
 @app.route("/calculesent", methods=['POST', 'GET'])
 def greeter2():
-	if request.form['action'] == '😻 Get Sentiment ☹️':
+    if request.form['action'] == '😻 Get Sentiment ☹️':
                 v,s=sent(request.form['name_input1'])
                 c="The Sentiment Expressed In "+str(request.form['name_input1'])+"\nis :"+str(s)+"\nThe Sentiment score is : "+str(v)
                 return render_template("sentimentoftext.html",v1=c)
-        elif request.form['action'] == ' Topic Classification ':
+    elif request.form['action'] == ' Topic Classification ':
                 v,s=topic(request.form['name_input1'])
                 c="The Topic Expressed In "+str(request.form['name_input1'])+"\nis :"+str(s)+"\nThe Topic scor is : "+str(v)
                 return render_template("sentimentoftext.html",v1=c)
-        elif request.form['action'] == ' Hateful Verification ':
+    elif request.form['action'] == ' Hateful Verification ':
                 v,s=hate(request.form['name_input1'])
                 c="Your Text "+str(request.form['name_input1'])+"\ncould be :"+str(s)+"\nThe hateful score is : "+str(v)
                 return render_template("sentimentoftext.html",v1=c)
-        else:
+    else:
                 return render_template("sentimentoftext.html")
         
 @app.route("/calculetopic", methods=['POST', 'GET'])
