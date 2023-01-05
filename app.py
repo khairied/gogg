@@ -58,16 +58,16 @@ def sent(f):
     return (score,senti)
 
 def topic(f):
-    try:
+    ##try:
         response = requests.post("https://hf.space/embed/KheireddineDaouadi/DzTopic/+/api/predict/", json={"data": [f]}).json()
          ###print(response)
         data = str(response["data"])
         ##print(data["label"])
         senti=data[12:20]
         score=float(data[74:80])
-    except:
-        senti="others"
-        score="0.00"
+    ##except:
+        ##senti="others"
+        ##score="0.00"
     return (score,senti)
 def hate(f):
     try:
