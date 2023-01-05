@@ -45,40 +45,40 @@ import nltk
 stopwords = ['إذ', 'إذا', 'إذما', 'إذن', 'أف', 'أقل', 'أكثر', 'ألا', 'إلا', 'التي', 'الذي', 'الذين', 'اللاتي', 'اللائي', 'اللتان', 'اللتيا', 'اللتين', 'اللذان', 'اللذين', 'اللواتي', 'إلى', 'إليك', 'إليكم', 'إليكما', 'إليكن', 'أم', 'أما', 'أما', 'إما', 'أن', 'إن', 'إنا', 'أنا', 'أنت', 'أنتم', 'أنتما', 'أنتن', 'إنما', 'إنه', 'أنى', 'أنى', 'آه', 'آها', 'أو', 'أولاء', 'أولئك', 'أوه', 'آي', 'أي', 'أيها', 'إي', 'أين', 'أين', 'أينما', 'إيه', 'بخ', 'بس', 'بعد', 'بعض', 'بك', 'بكم', 'بكم', 'بكما', 'بكن', 'بل', 'بلى', 'بما', 'بماذا', 'بمن', 'بنا', 'به', 'بها', 'بهم', 'بهما', 'بهن', 'بي', 'بين', 'بيد', 'تلك', 'تلكم', 'تلكما', 'ته', 'تي', 'تين', 'تينك', 'ثم', 'ثمة', 'حاشا', 'حبذا', 'حتى', 'حيث', 'حيثما', 'حين', 'خلا', 'دون', 'ذا', 'ذات', 'ذاك', 'ذان', 'ذانك', 'ذلك', 'ذلكم', 'ذلكما', 'ذلكن', 'ذه', 'ذو', 'ذوا', 'ذواتا', 'ذواتي', 'ذي', 'ذين', 'ذينك', 'ريث', 'سوف', 'سوى', 'شتان', 'عدا', 'عسى', 'عل', 'على', 'عليك', 'عليه', 'عما', 'عن', 'عند', 'غير', 'فإذا', 'فإن', 'فلا', 'فمن', 'في', 'فيم', 'فيما', 'فيه', 'فيها', 'قد', 'كأن', 'كأنما', 'كأي', 'كأين', 'كذا', 'كذلك', 'كل', 'كلا', 'كلاهما', 'كلتا', 'كلما', 'كليكما', 'كليهما', 'كم', 'كم', 'كما', 'كي', 'كيت', 'كيف', 'كيفما', 'لا', 'لاسيما', 'لدى', 'لست', 'لستم', 'لستما', 'لستن', 'لسن', 'لسنا', 'لعل', 'لك', 'لكم', 'لكما', 'لكن', 'لكنما', 'لكي', 'لكيلا', 'لم', 'لما', 'لن', 'لنا', 'له', 'لها', 'لهم', 'لهما', 'لهن', 'لو', 'لولا', 'لوما', 'لي', 'لئن', 'ليت', 'ليس', 'ليسا', 'ليست', 'ليستا', 'ليسوا', 'ما', 'ماذا', 'متى', 'مذ', 'مع', 'مما', 'ممن', 'من', 'منه', 'منها', 'منذ', 'مه', 'مهما', 'نحن', 'نحو', 'نعم', 'ها', 'هاتان', 'هاته', 'هاتي', 'هاتين', 'هاك', 'هاهنا', 'هذا', 'هذان', 'هذه', 'هذي', 'هذين', 'هكذا', 'هل', 'هلا', 'هم', 'هما', 'هن', 'هنا', 'هناك', 'هنالك', 'هو', 'هؤلاء', 'هي', 'هيا', 'هيت', 'هيهات', 'والذي', 'والذين', 'وإذ', 'وإذا', 'وإن', 'ولا', 'ولكن', 'ولو', 'وما', 'ومن', 'وهو', 'يا', 'يمالى', 'قل', 'كثر', 'ألي', 'ليك', 'ليكم', 'نتيا', 'نتوما',  'بصح', 'هوما', 'وين', 'أمبعد', 'أومبعد', 'شوية', 'شويا', 'وش', 'واش', 'بوش', 'بواش']
 st_list=stopwords
 def sent(f):
-    ##try:
-        response = requests.post("https://hf.space/embed/KheireddineDaouadi/DzSenti/+/api/predict/", json={"data": [f]}).json()
-    ###print(response)
-        data = str(response["data"])
-    ##print(data["label"])
-        senti=data[12:20]
-        score=float(data[74:80])
-    ##except:
-        ##senti="neutral"
-        ##score="0.00"
-        return (score,senti)
-
-def topic(f):
     try:
-        response = requests.post("https://kheireddinedaouadi-dztopic.hf.space/run/predict", json={"data": [f]}).json()
-    ###print(response)
+        response = requests.post("https://hf.space/embed/KheireddineDaouadi/DzSenti/+/api/predict/", json={"data": [f]}).json()
+         ###print(response)
         data = str(response["data"])
-    ##print(data["label"])
+        ##print(data["label"])
         senti=data[12:20]
         score=float(data[74:80])
     except:
         senti="neutral"
         score="0.00"
     return (score,senti)
-def hate(f):
+
+def topic(f):
     try:
-        response = requests.post("https://kheireddinedaouadi-hate.hf.space/run/predict", json={"data": [f]}).json()
-    ###print(response)
+        response = requests.post("https://hf.space/embed/KheireddineDaouadi/DzTopic/+/api/predict/", json={"data": [f]}).json()
+         ###print(response)
         data = str(response["data"])
-    ##print(data["label"])
+        ##print(data["label"])
         senti=data[12:20]
         score=float(data[74:80])
     except:
-        senti="neutral"
+        senti="others"
+        score="0.00"
+    return (score,senti)
+def hate(f):
+    try:
+        response = requests.post("https://hf.space/embed/KheireddineDaouadi/hate/+/api/predict/", json={"data": [f]}).json()
+         ###print(response)
+        data = str(response["data"])
+        ##print(data["label"])
+        senti=data[12:20]
+        score=float(data[74:80])
+    except:
+        senti="others"
         score="0.00"
     return (score,senti)
 
