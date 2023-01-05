@@ -68,7 +68,7 @@ def topic(f):
     ##except:
         ##senti="others"
         ##score="0.00"
-    return (score,senti)
+        return (score,senti)
 def hate(f):
     try:
         response = requests.post("https://hf.space/embed/KheireddineDaouadi/hate/+/api/predict/", json={"data": [f]}).json()
