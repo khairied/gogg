@@ -23,7 +23,7 @@ mysql = MySQL(app)
 def login():
     # Output message if something goes wrong...
     msg = ''
-    return render_template('index.html', msg='')
+    return render_template('login.html', msg='')
     
     
     
