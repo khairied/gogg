@@ -518,7 +518,7 @@ def login():
             session['id'] = account['id']
             session['username'] = account['username']
             # Redirect to home page
-            return return redirect(url_for('home'))
+            return redirect(url_for('home'))
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
