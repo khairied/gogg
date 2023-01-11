@@ -22,4 +22,3 @@ arabic_reshaper
 scikit-learn
 facebook_scraper
 ar_wordcloud
-flask_mysqldb
